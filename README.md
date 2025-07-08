@@ -1,10 +1,62 @@
-# 💼 Anuj Kumar Gupta — Portfolio
+# 💼 Akhilesh Gupta — Portfolio
 
 Welcome to my personal portfolio website!  
-I'm a **Full Stack Web Developer** passionate about turning ideas into interactive, high-performance web applications. This portfolio showcases my skills, projects, and experience as a developer.
+I'm a **Full Stack Web Developer** dedicated to crafting seamless, user-friendly, and scalable digital experiences. This portfolio showcases my projects, skills, and journey as a developer.
 
 ---
 
 ## 🚀 About Me
 
-I'm Anuj, a developer who builds fast, responsive, and intuitive web solutions with clean, scalable code. I focus on creating seamless user experiences by bridging solid backend systems with polished frontend design.
+I'm Akhilesh, a passionate developer with **over a year of real-world experience** building full-stack applications. I specialize in developing responsive and intuitive web solutions using modern technologies like **React**, **Tailwind CSS**, **JavaScript**, and more.
+
+I love solving complex challenges with clean UI and efficient logic — bringing together creative design and powerful functionality.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React.js, Next.js, Tailwind CSS, Bootstrap, HTML5, CSS3, JavaScript
+- **Backend**: Node.js, Express.js, MongoDB, REST APIs
+- **Tools & Platforms**: Git, GitHub, Vercel, Render, Cloudinary, Postman
+
+---
+
+## 📂 Projects
+
+### 🟢 [Extra Bite](https://github.com/Akhilesh10gupta/extra-bite)
+> A food-sharing platform where donors can post surplus food, and receivers can request it. Features authentication, profile management, real-time donation tracking, request management, OTP pickup, and more.
+
+### 🎧 [Musiz](https://github.com/Akhilesh10gupta/Musiz)
+> A dynamic frontend music discovery app built using React and Tailwind CSS. Features artist grids, soundwave animations, and sleek transitions for an immersive experience.
+
+### 🍸 [TipsyTown](https://github.com/Akhilesh10gupta/Tipsytown)
+> A stylish and responsive restaurant website built using HTML, CSS, JavaScript, and Bootstrap. Perfect for showcasing food menus, chef profiles, and testimonials.
+
+---
+
+## 🌐 Live Projects
+
+- 🔗 [TipsyTown Live](https://akhilesh10gupta.github.io/Tipsytown/)
+- 🔗 [Musiz Live](https://musiz-akhi.vercel.app/)
+- 🔗 [Extra Bite Live](https://extra-bite.vercel.app/)
+
+---
+
+## 📫 Contact
+
+- 📧 Email: [gakhilesh946@gmail.com](mailto:gakhilesh946@gmail.com)
+- 💼 LinkedIn: [linkedin.com/in/akhilesh-gupta-826067228](https://www.linkedin.com/in/akhilesh-gupta-826067228/)
+- 💻 GitHub: [github.com/Akhilesh10gupta](https://github.com/Akhilesh10gupta)
+
+---
+
+## 📃 License
+
+This project and portfolio are open-source and available under the [MIT License](LICENSE).
+
+---
+
+## 🙌 Acknowledgements
+
+Thanks for checking out my portfolio! If you like my work or want to collaborate, feel free to connect.
+
