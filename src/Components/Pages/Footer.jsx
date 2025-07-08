@@ -17,10 +17,34 @@ const Footer = () => {
     return false;
   });
 
+  // View count state
+  const [viewCount, setViewCount] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedViews = localStorage.getItem("portfolioViews");
+      return savedViews ? parseInt(savedViews) : 0;
+    }
+    return 0;
+  });
+
   useEffect(() => {
     localStorage.setItem("portfolioLikes", likeCount.toString());
     localStorage.setItem("portfolioLiked", liked.toString());
   }, [likeCount, liked]);
+
+  // Increment view count on first visit in this session
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const sessionKey = "portfolioViewedThisSession";
+      if (!sessionStorage.getItem(sessionKey)) {
+        setViewCount((prev) => {
+          const newCount = prev + 1;
+          localStorage.setItem("portfolioViews", newCount.toString());
+          return newCount;
+        });
+        sessionStorage.setItem(sessionKey, "true");
+      }
+    }
+  }, []);
 
   const handleLike = () => {
     if (!liked) {
@@ -132,7 +156,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Like Button */}
+          {/* Like Button & View Count */}
           <motion.div
             className="flex flex-col items-center"
             initial={{ opacity: 0, y: 20 }}
@@ -140,55 +164,61 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <motion.button
-              onClick={handleLike}
-              className={`like-button flex items-center gap-2 px-4 py-2 rounded-full ${
-                liked ? "bg-pink-500/20" : "bg-gray-800"
-              } hover:bg-pink-500/20 transition-colors duration-300`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              disabled={liked}
-            >
-              <motion.span
-                animate={{
-                  scale: liked ? [1, 1.2, 1] : 1,
-                }}
-                transition={{
-                  duration: 0.6,
-                }}
+            <div className="flex items-center gap-4">
+              <motion.button
+                onClick={handleLike}
+                className={`like-button flex items-center gap-2 px-4 py-2 rounded-full ${
+                  liked ? "bg-pink-500/20" : "bg-gray-800"
+                } hover:bg-pink-500/20 transition-colors duration-300`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                disabled={liked}
               >
-                {liked ? (
-                  <svg
-                    className="w-6 h-6 text-pink-500"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-6 h-6 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                    />
-                  </svg>
-                )}
-              </motion.span>
-              <span
-                className={`text-sm font-medium ${
-                  liked ? "text-pink-500" : "text-gray-400"
-                }`}
-              >
-                {likeCount} {likeCount === 1 ? "Like" : "Likes"}
-              </span>
-            </motion.button>
+                <motion.span
+                  animate={{
+                    scale: liked ? [1, 1.2, 1] : 1,
+                  }}
+                  transition={{
+                    duration: 0.6,
+                  }}
+                >
+                  {liked ? (
+                    <svg
+                      className="w-6 h-6 text-pink-500"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="w-6 h-6 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                  )}
+                </motion.span>
+                <span
+                  className={`text-sm font-medium ${
+                    liked ? "text-pink-500" : "text-gray-400"
+                  }`}
+                >
+                  {likeCount} {likeCount === 1 ? "Like" : "Likes"}
+                </span>
+              </motion.button>
+              <div className="flex flex-col items-center">
+                <span className="text-xs text-gray-400">Views</span>
+                <span className="text-base font-semibold text-blue-400">{viewCount}</span>
+              </div>
+            </div>
             <p className="text-xs text-gray-500 mt-1">
               {liked ? "Thank you!" : "Like this portfolio?"}
             </p>
@@ -212,7 +242,7 @@ const Footer = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          © {new Date().getFullYear()} Anuj Gupta | Crafted with{" "}
+          © {new Date().getFullYear()} Akhilesh Gupta | Crafted with{" "}
           <span className="text-pink-500">💖</span> | All rights reserved.
         </motion.div>
       </div>
