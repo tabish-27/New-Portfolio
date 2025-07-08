@@ -65,11 +65,31 @@ const Header = () => {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? (
-              <FiX size={24} className="transition-transform duration-300" />
-            ) : (
-              <BiMenuAltRight size={28} className="transition-transform duration-300" />
-            )}
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileMenuOpen ? (
+                <motion.span
+                  key="close"
+                  initial={{ scale: 0.7, opacity: 0, rotate: -90 }}
+                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                  exit={{ scale: 0.7, opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.25 }}
+                  style={{ display: 'inline-block' }}
+                >
+                  <FiX size={28} />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="menu"
+                  initial={{ scale: 0.7, opacity: 0, rotate: 90 }}
+                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                  exit={{ scale: 0.7, opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.25 }}
+                  style={{ display: 'inline-block' }}
+                >
+                  <BiMenuAltRight size={28} />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
         </div>
 
