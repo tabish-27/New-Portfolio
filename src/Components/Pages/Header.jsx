@@ -75,49 +75,47 @@ const Header = () => {
 
         {/* Mobile Menu */}
         <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            className="fixed inset-0 z-40 md:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            {/* Background overlay */}
-            <motion.div 
-              className="absolute inset-0 bg-black/30 dark:bg-black/50 backdrop-blur-sm transition-opacity duration-300"
-              onClick={() => setMobileMenuOpen(false)}
+          {mobileMenuOpen && (
+            <motion.div
+              className="fixed inset-0 z-40 md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-            />
-            
-            {/* Menu container */}
-            <motion.div
-              className="absolute top-20 right-4 left-4 mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 transition-all duration-300 transform origin-top"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ y: -40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -40, opacity: 0 }}
-              transition={{ duration: 0.3, type: "spring", bounce: 0.2 }}
             >
-              <nav className="flex flex-col space-y-2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={`#${link.id}`}
-                    className="relative py-3 px-4 text-gray-800 dark:text-gray-200 font-medium group rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.title}
-                    <span className="absolute bottom-1.5 left-4 right-4 h-0.5 bg-blue-500 dark:bg-purple-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-in-out" />
-                  </a>
-                ))}
-              </nav>
+              {/* Background overlay */}
+              <motion.div
+                className="absolute inset-0 bg-black/30 dark:bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+                onClick={() => setMobileMenuOpen(false)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              />
+              {/* Menu container */}
+              <motion.div
+                className="absolute top-20 right-4 left-4 mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 transition-all duration-300 transform origin-top"
+                onClick={(e) => e.stopPropagation()}
+                initial={{ y: -40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -40, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 400, damping: 30, duration: 0.35 }}
+              >
+                <nav className="flex flex-col space-y-2">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.id}
+                      href={`#${link.id}`}
+                      className="relative py-3 px-4 text-gray-800 dark:text-gray-200 font-medium group rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.title}
+                      <span className="absolute bottom-1.5 left-4 right-4 h-0.5 bg-blue-500 dark:bg-purple-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-in-out" />
+                    </a>
+                  ))}
+                </nav>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
+          )}
         </AnimatePresence>
       </header>
     </>

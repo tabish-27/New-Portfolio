@@ -1,11 +1,15 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { database } from "../../firebaseConfig.js";
-import { ref, onValue, set, get } from "firebase/database";
 
 const Footer = () => {
-  const [likeCount, setLikeCount] = useState(0);
-  const [showTopBtn, setShowTopBtn] = useState(false);
+  const [likeCount, setLikeCount] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedLikes = localStorage.getItem("portfolioLikes");
+      return savedLikes ? parseInt(savedLikes) : 5;
+    }
+    return 0;
+  });
+
   const [liked, setLiked] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("portfolioLiked") === "true";
@@ -14,35 +18,15 @@ const Footer = () => {
   });
 
   useEffect(() => {
-    const likesRef = ref(database, "portfolioLikes");
-    get(likesRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        setLikeCount(snapshot.val());
-      } else {
-        set(likesRef, 5);
-        setLikeCount(5);
-      }
-    });
-    // realtime listener
-    const unsubscribe = onValue(likesRef, (snapshot) => {
-      if (snapshot.exists()) {
-        setLikeCount(snapshot.val());
-      }
-    });
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("portfolioLiked", liked.toString());
-    }
-  }, [liked]);
+    localStorage.setItem("portfolioLikes", likeCount.toString());
+    localStorage.setItem("portfolioLiked", liked.toString());
+  }, [likeCount, liked]);
 
   const handleLike = () => {
     if (!liked) {
-      const likesRef = ref(database, "portfolioLikes");
-      set(likesRef, likeCount + 1);
+      setLikeCount((prevCount) => prevCount + 1);
       setLiked(true);
+
       setTimeout(() => {
         const likeButton = document.querySelector(".like-button");
         if (likeButton) {
@@ -54,77 +38,6 @@ const Footer = () => {
       }, 200);
     }
   };
-
-  // View count state (will be global/Firebase)
-  const [viewCount, setViewCount] = useState(0);
-
-  // Show/hide back-to-top button
-  // Fetch like and view count from Firebase on mount
-  useEffect(() => {
-    const fetchCounts = async () => {
-      try {
-        const viewRef = ref(database, "portfolioViews");
-        const viewSnap = await get(viewRef);
-        if (viewSnap.exists()) {
-          setViewCount(viewSnap.val().count || 0);
-        } else {
-          await set(viewRef, { count: 0 });
-          setViewCount(0);
-        }
-      } catch (error) {
-        console.error("Error fetching counts from Firebase:", error);
-      }
-    };
-    fetchCounts();
-  }, []);
-
-  // Increment global view count on first visit in this session
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const sessionKey = "portfolioViewedThisSession";
-      if (!sessionStorage.getItem(sessionKey)) {
-        const incrementView = async () => {
-          try {
-            const viewRef = ref(database, "portfolioViews");
-            await set(viewRef, { count: viewCount + 1 });
-            setViewCount((prev) => prev + 1);
-            sessionStorage.setItem(sessionKey, "true");
-          } catch (error) {
-            // If doc doesn't exist, create it
-            if (error.code === "not-found") {
-              await set(ref(database, "portfolioViews"), { count: 1 });
-              setViewCount(1);
-              sessionStorage.setItem(sessionKey, "true");
-            } else {
-              console.error("Error updating view in Firebase:", error);
-            }
-          }
-        };
-        incrementView();
-      }
-    }
-  }, [viewCount]);
-
-  // Show/hide back-to-top button on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowTopBtn(window.scrollY > 200);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Back to top handler
-  const handleBackToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  // Check if user has liked (local, to prevent multiple likes per user)
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setLiked(localStorage.getItem("portfolioLiked") === "true");
-    }
-  }, []);
 
   const socialLinks = [
     {
@@ -182,23 +95,6 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 dark:bg-gray-950 border-t border-gray-800 dark:border-gray-800 py-12">
       <div className="container mx-auto px-6 sm:px-12 lg:px-24">
-        {/* Back to Top Button */}
-        {showTopBtn && (
-          <motion.button
-            className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-purple-400 text-white shadow-lg hover:bg-purple-700 transition-colors duration-300"
-            onClick={handleBackToTop}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Back to top"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-            </svg>
-          </motion.button>
-        )}
         <div className="flex flex-col items-center md:flex-row md:justify-between gap-8">
           <motion.div
             className="flex flex-col md:flex-row items-center gap-6 md:ml-12"
@@ -236,7 +132,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Like Button & View Count */}
+          {/* Like Button */}
           <motion.div
             className="flex flex-col items-center"
             initial={{ opacity: 0, y: 20 }}
@@ -244,61 +140,55 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center gap-4">
-              <motion.button
-                onClick={handleLike}
-                className={`like-button flex items-center gap-2 px-4 py-2 rounded-full ${
-                  liked ? "bg-pink-500/20" : "bg-gray-800"
-                } hover:bg-pink-500/20 transition-colors duration-300`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                disabled={liked}
+            <motion.button
+              onClick={handleLike}
+              className={`like-button flex items-center gap-2 px-4 py-2 rounded-full ${
+                liked ? "bg-pink-500/20" : "bg-gray-800"
+              } hover:bg-pink-500/20 transition-colors duration-300`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              disabled={liked}
+            >
+              <motion.span
+                animate={{
+                  scale: liked ? [1, 1.2, 1] : 1,
+                }}
+                transition={{
+                  duration: 0.6,
+                }}
               >
-                <motion.span
-                  animate={{
-                    scale: liked ? [1, 1.2, 1] : 1,
-                  }}
-                  transition={{
-                    duration: 0.6,
-                  }}
-                >
-                  {liked ? (
-                    <svg
-                      className="w-6 h-6 text-pink-500"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      className="w-6 h-6 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      />
-                    </svg>
-                  )}
-                </motion.span>
-                <span
-                  className={`text-sm font-medium ${
-                    liked ? "text-pink-500" : "text-gray-400"
-                  }`}
-                >
-                  {likeCount} {likeCount === 1 ? "Like" : "Likes"}
-                </span>
-              </motion.button>
-              <div className="flex flex-col items-center">
-                <span className="text-xs text-gray-400">Views</span>
-                <span className="text-base font-semibold text-purple-400">{viewCount}</span>
-              </div>
-            </div>
+                {liked ? (
+                  <svg
+                    className="w-6 h-6 text-pink-500"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-6 h-6 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                )}
+              </motion.span>
+              <span
+                className={`text-sm font-medium ${
+                  liked ? "text-pink-500" : "text-gray-400"
+                }`}
+              >
+                {likeCount} {likeCount === 1 ? "Like" : "Likes"}
+              </span>
+            </motion.button>
             <p className="text-xs text-gray-500 mt-1">
               {liked ? "Thank you!" : "Like this portfolio?"}
             </p>
