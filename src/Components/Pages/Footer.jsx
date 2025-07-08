@@ -185,7 +185,7 @@ const Footer = () => {
         {/* Back to Top Button */}
         {showTopBtn && (
           <motion.button
-            className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-purple-400 text-white shadow-lg hover:bg-blue-700 transition-colors duration-300"
+            className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-purple-400 text-white shadow-lg hover:bg-purple-700 transition-colors duration-300"
             onClick={handleBackToTop}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -296,7 +296,7 @@ const Footer = () => {
               </motion.button>
               <div className="flex flex-col items-center">
                 <span className="text-xs text-gray-400">Views</span>
-                <span className="text-base font-semibold text-blue-400">{viewCount}</span>
+                <span className="text-base font-semibold text-purple-400">{viewCount}</span>
               </div>
             </div>
             <p className="text-xs text-gray-500 mt-1">
