@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
 import { BiMenuAltRight } from "react-icons/bi";
+import { AnimatePresence, motion } from "framer-motion";
 
 const navLinks = [
   { id: "home", title: "Home" },
@@ -73,18 +74,33 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu */}
+        <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-40 md:hidden">
+          <motion.div
+            className="fixed inset-0 z-40 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
             {/* Background overlay */}
-            <div 
+            <motion.div 
               className="absolute inset-0 bg-black/30 dark:bg-black/50 backdrop-blur-sm transition-opacity duration-300"
               onClick={() => setMobileMenuOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
             />
             
             {/* Menu container */}
-            <div
+            <motion.div
               className="absolute top-20 right-4 left-4 mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 transition-all duration-300 transform origin-top"
               onClick={(e) => e.stopPropagation()}
+              initial={{ y: -40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -40, opacity: 0 }}
+              transition={{ duration: 0.3, type: "spring", bounce: 0.2 }}
             >
               <nav className="flex flex-col space-y-2">
                 {navLinks.map((link) => (
@@ -99,9 +115,10 @@ const Header = () => {
                   </a>
                 ))}
               </nav>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </header>
     </>
   );
