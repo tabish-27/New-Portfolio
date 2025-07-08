@@ -5,6 +5,13 @@ I'm a **Full Stack Web Developer** dedicated to crafting seamless, user-friendly
 
 ---
 
+---
+
+## 🌐 Live Portfolio
+
+🔗 [Visit My Live Portfolio](https://portfolio-akhilesh-gupta.vercel.app/)
+
+---
 ## 🚀 About Me
 
 I'm Akhilesh, a passionate developer with **over a year of real-world experience** building full-stack applications. I specialize in developing responsive and intuitive web solutions using modern technologies like **React**, **Tailwind CSS**, **JavaScript**, and more.
@@ -19,7 +26,7 @@ I love solving complex challenges with clean UI and efficient logic — bringing
 - **Backend**: Node.js, Express.js, MongoDB, REST APIs
 - **Tools & Platforms**: Git, GitHub, Vercel, Render, Cloudinary, Postman
 
----
+
 
 ## 📂 Projects
 
@@ -34,11 +41,12 @@ I love solving complex challenges with clean UI and efficient logic — bringing
 
 ---
 
-## 🌐 Live Projects
+## 🔴 Live Project Links
 
-- 🔗 [TipsyTown Live](https://akhilesh10gupta.github.io/Tipsytown/)
-- 🔗 [Musiz Live](https://musiz-akhi.vercel.app/)
-- 🔗 [Extra Bite Live](https://extra-bite.vercel.app/)
+- 🌐 [TipsyTown Live](https://akhilesh10gupta.github.io/Tipsytown/)
+- 🌐 [Musiz Live](https://musiz-akhi.vercel.app/)
+- 🌐 [Extra Bite Live](https://extra-bite.vercel.app/)
+- 🌐 [Portfolio Live](https://portfolio-akhilesh-gupta.vercel.app/)
 
 ---
 
@@ -59,4 +67,3 @@ This project and portfolio are open-source and available under the [MIT License]
 ## 🙌 Acknowledgements
 
 Thanks for checking out my portfolio! If you like my work or want to collaborate, feel free to connect.
-
