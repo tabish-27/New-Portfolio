@@ -1,23 +1,14 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { db } from "../../firebase";
+import { doc, getDoc, setDoc, updateDoc, increment } from "firebase/firestore";
 
 const Footer = () => {
-  const [likeCount, setLikeCount] = useState(() => {
-    if (typeof window !== "undefined") {
-      const savedLikes = localStorage.getItem("portfolioLikes");
-      return savedLikes ? parseInt(savedLikes) : 5;
-    }
-    return 0;
-  });
+  // Like count and liked state for Firebase
+  const [likeCount, setLikeCount] = useState(0);
+  const [liked, setLiked] = useState(false);
 
-  const [liked, setLiked] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("portfolioLiked") === "true";
-    }
-    return false;
-  });
-
-  // View count state
+  // View count state (still local)
   const [viewCount, setViewCount] = useState(() => {
     if (typeof window !== "undefined") {
       const savedViews = localStorage.getItem("portfolioViews");
@@ -26,12 +17,34 @@ const Footer = () => {
     return 0;
   });
 
+  // Fetch like count from Firebase on mount
   useEffect(() => {
-    localStorage.setItem("portfolioLikes", likeCount.toString());
-    localStorage.setItem("portfolioLiked", liked.toString());
-  }, [likeCount, liked]);
+    const fetchLikes = async () => {
+      try {
+        const docRef = doc(db, "portfolio", "likes");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setLikeCount(docSnap.data().count || 0);
+        } else {
+          // If doc doesn't exist, create it with 0 likes
+          await setDoc(docRef, { count: 0 });
+          setLikeCount(0);
+        }
+      } catch (error) {
+        console.error("Error fetching likes from Firebase:", error);
+      }
+    };
+    fetchLikes();
+  }, []);
 
-  // Increment view count on first visit in this session
+  // Check if user has liked (local, to prevent multiple likes per user)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setLiked(localStorage.getItem("portfolioLiked") === "true");
+    }
+  }, []);
+
+  // Increment view count on first visit in this session (local only)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const sessionKey = "portfolioViewedThisSession";
@@ -46,20 +59,18 @@ const Footer = () => {
     }
   }, []);
 
-  const handleLike = () => {
+  // Like handler: update Firebase and local liked state
+  const handleLike = async () => {
     if (!liked) {
-      setLikeCount((prevCount) => prevCount + 1);
-      setLiked(true);
-
-      setTimeout(() => {
-        const likeButton = document.querySelector(".like-button");
-        if (likeButton) {
-          likeButton.classList.add("animate-ping");
-          setTimeout(() => {
-            likeButton.classList.remove("animate-ping");
-          }, 500);
-        }
-      }, 200);
+      try {
+        const docRef = doc(db, "portfolio", "likes");
+        await updateDoc(docRef, { count: increment(1) });
+        setLikeCount((prev) => prev + 1);
+        setLiked(true);
+        localStorage.setItem("portfolioLiked", "true");
+      } catch (error) {
+        console.error("Error updating like in Firebase:", error);
+      }
     }
   };
 
