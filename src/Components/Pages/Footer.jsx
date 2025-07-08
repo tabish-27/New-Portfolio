@@ -1,41 +1,123 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { db } from "../../firebase";
-import { doc, getDoc, setDoc, updateDoc, increment } from "firebase/firestore";
+import { database } from "../../firebaseConfig.js";
+import { ref, onValue, set, get } from "firebase/database";
 
 const Footer = () => {
-  // Like count and liked state for Firebase
   const [likeCount, setLikeCount] = useState(0);
-  const [liked, setLiked] = useState(false);
-
-  // View count state (still local)
-  const [viewCount, setViewCount] = useState(() => {
+  const [showTopBtn, setShowTopBtn] = useState(false);
+  const [liked, setLiked] = useState(() => {
     if (typeof window !== "undefined") {
-      const savedViews = localStorage.getItem("portfolioViews");
-      return savedViews ? parseInt(savedViews) : 0;
+      return localStorage.getItem("portfolioLiked") === "true";
     }
-    return 0;
+    return false;
   });
 
-  // Fetch like count from Firebase on mount
   useEffect(() => {
-    const fetchLikes = async () => {
+    const likesRef = ref(database, "portfolioLikes");
+    get(likesRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        setLikeCount(snapshot.val());
+      } else {
+        set(likesRef, 5);
+        setLikeCount(5);
+      }
+    });
+    // realtime listener
+    const unsubscribe = onValue(likesRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setLikeCount(snapshot.val());
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("portfolioLiked", liked.toString());
+    }
+  }, [liked]);
+
+  const handleLike = () => {
+    if (!liked) {
+      const likesRef = ref(database, "portfolioLikes");
+      set(likesRef, likeCount + 1);
+      setLiked(true);
+      setTimeout(() => {
+        const likeButton = document.querySelector(".like-button");
+        if (likeButton) {
+          likeButton.classList.add("animate-ping");
+          setTimeout(() => {
+            likeButton.classList.remove("animate-ping");
+          }, 500);
+        }
+      }, 200);
+    }
+  };
+
+  // View count state (will be global/Firebase)
+  const [viewCount, setViewCount] = useState(0);
+
+  // Show/hide back-to-top button
+  // Fetch like and view count from Firebase on mount
+  useEffect(() => {
+    const fetchCounts = async () => {
       try {
-        const docRef = doc(db, "portfolio", "likes");
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setLikeCount(docSnap.data().count || 0);
+        const viewRef = ref(database, "portfolioViews");
+        const viewSnap = await get(viewRef);
+        if (viewSnap.exists()) {
+          setViewCount(viewSnap.val().count || 0);
         } else {
-          // If doc doesn't exist, create it with 0 likes
-          await setDoc(docRef, { count: 0 });
-          setLikeCount(0);
+          await set(viewRef, { count: 0 });
+          setViewCount(0);
         }
       } catch (error) {
-        console.error("Error fetching likes from Firebase:", error);
+        console.error("Error fetching counts from Firebase:", error);
       }
     };
-    fetchLikes();
+    fetchCounts();
   }, []);
+
+  // Increment global view count on first visit in this session
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const sessionKey = "portfolioViewedThisSession";
+      if (!sessionStorage.getItem(sessionKey)) {
+        const incrementView = async () => {
+          try {
+            const viewRef = ref(database, "portfolioViews");
+            await set(viewRef, { count: viewCount + 1 });
+            setViewCount((prev) => prev + 1);
+            sessionStorage.setItem(sessionKey, "true");
+          } catch (error) {
+            // If doc doesn't exist, create it
+            if (error.code === "not-found") {
+              await set(ref(database, "portfolioViews"), { count: 1 });
+              setViewCount(1);
+              sessionStorage.setItem(sessionKey, "true");
+            } else {
+              console.error("Error updating view in Firebase:", error);
+            }
+          }
+        };
+        incrementView();
+      }
+    }
+  }, [viewCount]);
+
+  // Show/hide back-to-top button on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowTopBtn(window.scrollY > 200);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Back to top handler
+  const handleBackToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // Check if user has liked (local, to prevent multiple likes per user)
   useEffect(() => {
@@ -43,36 +125,6 @@ const Footer = () => {
       setLiked(localStorage.getItem("portfolioLiked") === "true");
     }
   }, []);
-
-  // Increment view count on first visit in this session (local only)
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const sessionKey = "portfolioViewedThisSession";
-      if (!sessionStorage.getItem(sessionKey)) {
-        setViewCount((prev) => {
-          const newCount = prev + 1;
-          localStorage.setItem("portfolioViews", newCount.toString());
-          return newCount;
-        });
-        sessionStorage.setItem(sessionKey, "true");
-      }
-    }
-  }, []);
-
-  // Like handler: update Firebase and local liked state
-  const handleLike = async () => {
-    if (!liked) {
-      try {
-        const docRef = doc(db, "portfolio", "likes");
-        await updateDoc(docRef, { count: increment(1) });
-        setLikeCount((prev) => prev + 1);
-        setLiked(true);
-        localStorage.setItem("portfolioLiked", "true");
-      } catch (error) {
-        console.error("Error updating like in Firebase:", error);
-      }
-    }
-  };
 
   const socialLinks = [
     {
@@ -130,6 +182,23 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 dark:bg-gray-950 border-t border-gray-800 dark:border-gray-800 py-12">
       <div className="container mx-auto px-6 sm:px-12 lg:px-24">
+        {/* Back to Top Button */}
+        {showTopBtn && (
+          <motion.button
+            className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-purple-400 text-white shadow-lg hover:bg-blue-700 transition-colors duration-300"
+            onClick={handleBackToTop}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Back to top"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+            </svg>
+          </motion.button>
+        )}
         <div className="flex flex-col items-center md:flex-row md:justify-between gap-8">
           <motion.div
             className="flex flex-col md:flex-row items-center gap-6 md:ml-12"
