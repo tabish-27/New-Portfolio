@@ -3,36 +3,33 @@
 const projects = {
     allProject: [
         {
-            image: 'https://res.cloudinary.com/dizmm8x5t/image/upload/v1752001285/Screenshot_2025-07-09_003106_iykxjq.png',
-            title: 'ExtraBite | Live',
-            description: 'ExtraBite is a food donation platform that connects donors and receivers to reduce food wastage. Users can register as Donors or Receivers, browse real-time food listings, request donations, manage pickups via OTP verification, and rate donation experiences. The platform supports image uploads, user authentication, role-based access, and a responsive UI.',
-            sourcecode: 'https://github.com/Akhilesh10gupta/Extrabite',
-            livelink: 'https://extrabite.vercel.app/',
-            teckstack: [
-                "React", "Tailwind CSS", "Java", "Spring Boot 3.5", "PostgreSQL", "JPA/Hibernate",
-                "Spring Security (JWT)", "Maven", "Swagger", "Docker"
-            ],
-            status: 'live',
-            featured: true
-        },
-        {
-            image: 'https://res.cloudinary.com/dizmm8x5t/image/upload/v1752002023/Screenshot_2025-07-09_003936_ljuxs7.png',
-            title: 'Musiz | LIVE Site available',
-            description: 'Musiz is a sleek and modern frontend music discovery platform developed as a freelance project. Built with React and Tailwind CSS, it features artist grids, soundwave animations, 3D instrument placeholders, and smooth content transitions to deliver an engaging and responsive user experience.',
-            sourcecode: 'https://github.com/Akhilesh10gupta/musiz',
-            livelink: 'https://sirmusiz.vercel.app/',
-            teckstack: ["JavaScript", "React", "Tailwind CSS", "Framer Motion", "Three.js"],
+            image: '/food-zaika-screenshot.png',
+            title: 'Food Zaika | LIVE Site available',
+            description: 'Food Zaika is a modern, responsive food delivery web application built with React and Tailwind CSS. Features include real-time search, dark/light theme toggle, cart management with Redux, location-based restaurant discovery, infinite scroll, and PWA support. Experience seamless food ordering with a beautiful UI and mobile-first design.',
+            sourcecode: 'https://github.com/tabish-27/Food-Zaika.git',
+            livelink: 'https://food-zaika.vercel.app/',
+            teckstack: ["React", "Tailwind CSS", "Redux Toolkit", "Vite"],
             status: 'LIVE',
             featured: true
         },
         {
-            image: 'https://res.cloudinary.com/dizmm8x5t/image/upload/v1752005701/Screenshot_2025-07-09_014437_n52frk.png',
-            title: 'TipsyTown | LIVE site available',
-            description: 'TipsyTown is a stylish, responsive restaurant website crafted using HTML, CSS, JavaScript, and Bootstrap. It offers a clean layout, elegant design, and smooth user experience — ideal for showcasing menus, chefs, testimonials, and contact info.',
-            sourcecode: 'https://github.com/Akhilesh10gupta/Tipsytown',
-            livelink: 'https://akhilesh10gupta.github.io/Tipsytown/',
-            teckstack: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-            status: 'live',
+            image: '/piclingo-screenshot.png',
+            title: 'PicLingo | LIVE Site available',
+            description: 'PicLingo is an AI-powered image caption recommendation system using CLIP for image and text understanding. It extracts feature vectors, computes cosine similarity, and ranks the most relevant captions. Ideal for content recommendation, image search, and automated tagging, PicLingo ensures efficient and accurate image-caption matching.',
+            sourcecode: 'https://github.com/tabish-27/PicLingo.git',
+            livelink: 'https://pic-lingo.vercel.app/',
+            teckstack: ["React", "Vite", "Node.js", "Express.js", "MongoDB", "CLIP AI", "Machine Learning", "Tailwind CSS"],
+            status: 'LIVE',
+            featured: true
+        },
+        {
+            image: '/codecompete-screenshot.png',
+            title: 'CodeCompete | LIVE Site available',
+            description: 'CodeCompete is an innovative web application designed for competitive programmers who want to improve their skills, compete with friends, and track their rankings. Features include topic-wise contests, local & global rankings, dedicated practice mode, custom groups, exciting rewards, flexible contest timing, unique question sets, post-contest practice, and discussion forum. Built with Vite, JavaScript, Tailwind CSS, MUI.',
+            sourcecode: 'https://github.com/tabish-27/CP-Application-Frontend.git',
+            livelink: 'https://cp-application-frontend.vercel.app/',
+            teckstack: ["Vite", "JavaScript", "Tailwind CSS", "MUI"],
+            status: 'LIVE',
             featured: true
         },
         // {

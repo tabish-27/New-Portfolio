@@ -1,4 +1,4 @@
-# 💼 Akhilesh Gupta — Portfolio
+# 💼 Tabish Javed — Portfolio
 
 Welcome to my personal portfolio website!  
 I'm a **Full Stack Web Developer** dedicated to crafting seamless, user-friendly, and scalable digital experiences. This portfolio showcases my projects, skills, and journey as a developer.
@@ -9,12 +9,12 @@ I'm a **Full Stack Web Developer** dedicated to crafting seamless, user-friendly
 
 ## 🌐 Live Portfolio
 
-🔗 [Visit My Live Portfolio](https://portfolio-akhilesh-gupta.vercel.app/)
+🔗 [Visit My Live Portfolio](https://tabish-portfolio.vercel.app/)
 
 ---
 ## 🚀 About Me
 
-I'm Akhilesh, a passionate developer with **over a year of real-world experience** building full-stack applications. I specialize in developing responsive and intuitive web solutions using modern technologies like **React**, **Tailwind CSS**, **JavaScript**, and more.
+I'm Tabish Javed, a passionate developer and final year B.Tech CSE student at Dr. RMLAU. I specialize in developing responsive and intuitive web solutions using modern technologies like **React**, **Tailwind CSS**, **JavaScript**, and more.
 
 I love solving complex challenges with clean UI and efficient logic — bringing together creative design and powerful functionality.
 
@@ -30,31 +30,31 @@ I love solving complex challenges with clean UI and efficient logic — bringing
 
 ## 📂 Projects
 
-### 🟢 [Extra Bite](https://github.com/Akhilesh10gupta/extra-bite)
-> A food-sharing platform where donors can post surplus food, and receivers can request it. Features authentication, profile management, real-time donation tracking, request management, OTP pickup, and more.
+### 🍕 [Food Zaika](https://github.com/tabish-27/Food-Zaika.git)
+> A modern, responsive food delivery web application built with React and Tailwind CSS. Features include real-time search, dark/light theme toggle, cart management with Redux, location-based restaurant discovery, infinite scroll, and PWA support.
 
-### 🎧 [Musiz](https://github.com/Akhilesh10gupta/Musiz)
-> A dynamic frontend music discovery app built using React and Tailwind CSS. Features artist grids, soundwave animations, and sleek transitions for an immersive experience.
+### 🎯 [PicLingo](https://github.com/tabish-27/PicLingo.git)
+> An innovative language learning application that uses visual storytelling and interactive exercises to help users learn new languages. Features include image-based vocabulary, pronunciation guides, progress tracking, and gamified learning experiences.
 
-### 🍸 [TipsyTown](https://github.com/Akhilesh10gupta/Tipsytown)
-> A stylish and responsive restaurant website built using HTML, CSS, JavaScript, and Bootstrap. Perfect for showcasing food menus, chef profiles, and testimonials.
+### 💻 [CodeCompete](https://github.com/tabish-27/CP-Application-Frontend.git)
+> An innovative web application designed for competitive programmers who want to improve their skills, compete with friends, and track their rankings. Features include topic-wise contests, local & global rankings, dedicated practice mode, custom groups, and exciting rewards.
 
 ---
 
 ## 🔴 Live Project Links
 
-- 🌐 [TipsyTown Live](https://akhilesh10gupta.github.io/Tipsytown/)
-- 🌐 [Musiz Live](https://musiz-akhi.vercel.app/)
-- 🌐 [Extra Bite Live](https://extra-bite.vercel.app/)
-- 🌐 [Portfolio Live](https://portfolio-akhilesh-gupta.vercel.app/)
+- 🌐 [Food Zaika Live](https://food-zaika.vercel.app/)
+- 🌐 [PicLingo Live](https://pic-lingo.vercel.app/)
+- 🌐 [CodeCompete Live](https://cp-application-frontend.vercel.app/)
+- 🌐 [Portfolio Live](https://tabish-portfolio.vercel.app/)
 
 ---
 
 ## 📫 Contact
 
-- 📧 Email: [gakhilesh946@gmail.com](mailto:gakhilesh946@gmail.com)
-- 💼 LinkedIn: [linkedin.com/in/akhilesh-gupta-826067228](https://www.linkedin.com/in/akhilesh-gupta-826067228/)
-- 💻 GitHub: [github.com/Akhilesh10gupta](https://github.com/Akhilesh10gupta)
+- 📧 Email: [tabishjaved2030@gmail.com](mailto:tabishjaved2030@gmail.com)
+- 💼 LinkedIn: [linkedin.com/in/tabish-javed](https://www.linkedin.com/in/tabish-javed/)
+- 💻 GitHub: [github.com/tabish-27](https://github.com/tabish-27)
 
 ---
 

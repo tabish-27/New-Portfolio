@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs, FaCode } from "react-icons/fa";
-import { SiMongodb, SiNextdotjs, SiJavascript } from "react-icons/si";
+import { SiJavascript, SiTailwindcss } from "react-icons/si";
 
 const About = () => {
   return (
@@ -120,8 +120,7 @@ const About = () => {
                 { icon: <SiJavascript className="text-yellow-500 text-xl" />, text: "JavaScript" },
                 { icon: <FaReact className="text-blue-500 text-xl" />, text: "React" },
                 { icon: <FaNodeJs className="text-green-500 text-xl" />, text: "Node.js" },
-                { icon: <SiMongodb className="text-green-600 text-xl" />, text: "MongoDB" },
-                { icon: <SiNextdotjs className="text-orange-500 text-xl" />, text: "Next.js" },
+                { icon: <SiTailwindcss className="text-cyan-400 text-xl" />, text: "Tailwind CSS" },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -154,7 +153,7 @@ const About = () => {
               <span className="text-2xl font-bold text-blue-600 dark:text-purple-400">
                 Hey there! 👋
               </span>{" "}
-                I'm Akhilesh Gupta — a passionate full-stack developer dedicated to creating intuitive digital experiences with clean UI and efficient logic.
+                I'm Tabish Javed — a passionate frontend developer dedicated to creating intuitive digital experiences with clean UI and efficient logic.
             </motion.p>
 
             <motion.p 
@@ -196,7 +195,7 @@ const About = () => {
             >
               My toolkit includes{" "}
               <span className="font-semibold">
-                JavaScript, React, Node.js, Next.js, and MongoDB
+                JavaScript, React, Node.js, and Tailwind CSS
               </span>{" "}
               — technologies I use daily to bring ideas to life.
             </motion.p>

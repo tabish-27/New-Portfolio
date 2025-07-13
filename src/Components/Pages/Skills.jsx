@@ -6,31 +6,31 @@ const Skills = () => {
     {
       title: "Programming",
       icon: <FaCode className="text-xl" />,
-      skills: ["C++", "JavaScript", "Java (Intermediate)"],
+      skills: ["C++", "JavaScript", "C"],
       color: "from-blue-500 to-blue-600"
     },
     {
       title: "Frontend",
       icon: <FaLaptopCode className="text-xl" />,
-      skills: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Material-UI", "HTML5", "CSS3"],
+      skills: ["React.js", "Tailwind CSS", "Material-UI", "HTML5", "CSS3"],
       color: "from-purple-500 to-purple-600"
     },
     {
       title: "Backend",
       icon: <FaServer className="text-xl" />,
-      skills: ["Node.js",  "REST APIs", "Socket.io",  "OAuth"],
+      skills: ["Node.js", "REST APIs"],
       color: "from-green-500 to-green-600"
     },
     {
       title: "Databases",
       icon: <FaDatabase className="text-xl" />,
-      skills: [  "MySQL", "Firebase", ],
+      skills: ["MySQL"],
       color: "from-yellow-500 to-yellow-600"
     },
     {
       title: "Tools/Platforms",
       icon: <FaTools className="text-xl" />,
-      skills: ["Git/GitHub", "VS Code", "Vercel", "Netlify", "Figma", "WordPress", "Postman"],
+      skills: ["Git/GitHub", "VS Code", "Vercel", "Netlify", "Figma", "Postman"],
       color: "from-indigo-500 to-indigo-600"
     },
     // {

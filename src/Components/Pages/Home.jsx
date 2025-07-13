@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import profilePic from "../../assets/profile pic.jpg";
+import profilePic from "../../assets/myprofile.pic.jpg";
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs, FaJs } from "react-icons/fa";
-import { SiMongodb, SiNextdotjs, SiTailwindcss } from "react-icons/si";
+import { SiMongodb, SiTailwindcss } from "react-icons/si";
 
 const Home = () => {
   const imageRef = useRef(null);
@@ -11,22 +11,12 @@ const Home = () => {
   const techStack = [
     { icon: <FaReact className="text-blue-500" size={28} />, name: "React" },
     {
-      icon: <FaNodeJs className="text-green-500" size={28} />,
-      name: "Node.js",
-    },
-    {
       icon: <FaJs className="text-yellow-500" size={28} />,
       name: "JavaScript",
     },
     {
-      icon: <SiMongodb className="text-green-600" size={28} />,
-      name: "MongoDB",
-    },
-    {
-      icon: (
-        <SiNextdotjs className="text-gray-800 dark:text-gray-200" size={28} />
-      ),
-      name: "Next.js",
+      icon: <FaNodeJs className="text-green-500" size={28} />,
+      name: "Node.js",
     },
     {
       icon: <SiTailwindcss className="text-cyan-400" size={28} />,
@@ -94,12 +84,12 @@ const Home = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-white mb-8">
-            Akhilesh Gupta
+            Tabish Javed
           </h1>
 
           <div className="flex items-center justify-center md:justify-start gap-4 mb-6">
             <h2 className="text-2xl md:text-3xl font-semibold text-blue-600 dark:text-purple-400">
-              Full Stack Web Developer
+              Frontend Developer
             </h2>
 
             <div className="relative h-8 w-8">
@@ -139,7 +129,7 @@ const Home = () => {
 
           <div className="flex gap-4 justify-center md:justify-start">
             <motion.a
-              href="https://drive.google.com/file/d/18cTrCgIs1bSuGjnANW0IKD2xbLcKZcb7/view?usp=sharing"
+              href="https://drive.google.com/file/d/1eThAFXh88-SNcqv9mkan8izw6AHCNCVe/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
@@ -195,7 +185,7 @@ const Home = () => {
             >
               <img
                 src={profilePic}
-                alt="Anuj Kumar Gupta"
+                alt="Tabish Javed"
                 className="w-full h-full object-cover scale-100"
                 style={{ objectPosition: "center top" }}
               />

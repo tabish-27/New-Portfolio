@@ -68,17 +68,17 @@ const Experience = () => {
               whileHover={{ scale: 1.02 }}
               className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4"
             >
-              Work <span className="text-blue-600 dark:text-purple-400">Experience</span>
+              Project <span className="text-blue-600 dark:text-purple-400">Experience</span>
             </motion.h2>
             <div className="h-1 w-20 bg-blue-500 dark:bg-purple-500 mb-5"></div>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              My professional journey through innovative companies and impactful projects.
+              My journey through building innovative projects and learning new technologies.
             </p>
           </motion.div>
 
           {/* Right Side - Experience Items */}
           <div className="md:w-2/3 space-y-12">
-            {/* Experience 1 */}
+            {/* Major Projects */}
             <motion.div
               className="relative pl-8 border-l-2 border-blue-400 dark:border-purple-500"
               initial={{ opacity: 0, y: 30 }}
@@ -93,23 +93,23 @@ const Experience = () => {
                 whileHover={{ x: 5 }}
               >
                 <FaLaptopCode className="text-blue-500 dark:text-purple-400 text-xl" />
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white">Web Developer</h3>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white">Major Projects</h3>
               </motion.div>
               
               <motion.p 
                 className="text-blue-600 dark:text-purple-400 mb-4 font-medium"
                 whileHover={{ x: 3 }}
               >
-                WeKnow Technologies • Dec 2023 - Feb 2024 (3 Months)
+                3+ Complex Full-Stack Applications
               </motion.p>
               
               <ul className="space-y-3 text-gray-700 dark:text-gray-300">
                 {[
-                  "Built responsive, user-friendly web interfaces using React.js, Tailwind CSS, and JavaScript for real-world client projects like Tipsy Town and Hotel Raj Palace.",
-                  "Collaborated with a team of developers and designers to convert Figma designs into pixel-perfect web pages.",
-                  "Integrated frontend with backend APIs, ensuring seamless data flow using tools like Axios and Fetch API.",
-                  "Participated in daily team discussions, resolved UI/UX bugs, and improved code quality and performance",
-                  "Gained hands-on experience in real-time problem-solving, component-based architecture, and Git-based collaboration."
+                  "Developed comprehensive full-stack applications using React.js, Node.js, and modern web technologies",
+                  "Built responsive user interfaces with Tailwind CSS and implemented smooth animations using Framer Motion",
+                  "Integrated RESTful APIs and implemented user authentication and authorization systems",
+                  "Deployed applications on platforms like Vercel and Netlify with proper CI/CD pipelines",
+                  "Collaborated with teams using Git/GitHub for version control and project management"
                 ].map((item, index) => (
                   <motion.li
                     key={index}
@@ -126,7 +126,7 @@ const Experience = () => {
               </ul>
             </motion.div>
 
-            {/* Experience 2 */}
+            {/* Mini Projects */}
             <motion.div
               className="relative pl-8 border-l-2 border-blue-400 dark:border-purple-500"
               initial={{ opacity: 0, y: 30 }}
@@ -140,23 +140,24 @@ const Experience = () => {
                 className="flex items-center gap-3 mb-2"
                 whileHover={{ x: 5 }}
               >
-                <FaChartLine className="text-blue-500 dark:text-purple-400 text-xl" />
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white">Web Developer Trainee</h3>
+                <FaLightbulb className="text-blue-500 dark:text-purple-400 text-xl" />
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white">Mini Projects</h3>
               </motion.div>
               
               <motion.p 
                 className="text-blue-600 dark:text-purple-400 mb-4 font-medium"
                 whileHover={{ x: 3 }}
               >
-                WeKnow Technologies • May 2023 - Nov 2023 (6 Months)
+                10+ Frontend Applications & Components
               </motion.p>
               
               <ul className="space-y-3 text-gray-700 dark:text-gray-300">
                 {[
-                  "Mastered practical frontend development skills through hands-on industrial training",
-                  "Built and deployed real-world web interfaces using React.js and Tailwind CSS",
-                  "Gained experience in UI integration, API handling, and component-based design",
-                  "Collaborated with a team to develop responsive websites for live projects such as the Shree Ram Hotel website and a School Management Software "
+                  "Created interactive UI components, landing pages, and single-page applications using React.js",
+                  "Implemented modern design patterns and responsive layouts with Tailwind CSS and CSS3",
+                  "Built dynamic features like form validation, data visualization, and real-time updates",
+                  "Developed reusable components and maintained clean, well-documented code structure",
+                  "Explored various APIs and libraries to enhance user experience and functionality"
                 ].map((item, index) => (
                   <motion.li
                     key={index}
