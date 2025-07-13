@@ -1,7 +1,7 @@
 # 💼 Tabish Javed — Portfolio
 
 Welcome to my personal portfolio website!  
-I'm a **Full Stack Web Developer** dedicated to crafting seamless, user-friendly, and scalable digital experiences. This portfolio showcases my projects, skills, and journey as a developer.
+I'm a **Frontend Web Developer** dedicated to crafting seamless, user-friendly, and scalable digital experiences. This portfolio showcases my projects, skills, and journey as a developer.
 
 ---
 
